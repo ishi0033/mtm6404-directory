@@ -1,0 +1,45 @@
+
+const list = (clients) => {
+  return clients.map(client => `
+    <li class="list-group-item d-flex justify-content-between" data-index="${client.index}">
+      ${client.name}
+      <strong>$ ${client.balance.toFixed(2)}</strong>
+    </li>
+  `).join('');
+};
+
+
+const order = (clients, property) => {
+  return clients.sort((a, b) => {
+    if (a[property] < b[property]) {
+      return -1;
+    } else if (a[property] > b[property]) {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
+};
+
+
+const total = (clients) => {
+  return clients.reduce((sum, client) => {
+    return sum + client.balance;
+  }, 0);
+};
+
+
+const info = (index) => {
+  return clients.find(client => {
+    return client.index === index;
+  });
+};
+
+
+const search = (query) => {
+  const lowerQuery = query.toLowerCase();
+
+  return clients.filter(client => {
+    return client.name.toLowerCase().includes(lowerQuery);
+  });
+};
